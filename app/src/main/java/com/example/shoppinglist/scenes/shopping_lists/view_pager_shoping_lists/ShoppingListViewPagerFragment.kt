@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import com.example.shoppinglist.R
 import com.example.shoppinglist.databinding.FragmentShoppingListViewPagerBinding
 import com.example.shoppinglist.scenes.shopping_lists.view_pager_shoping_lists.util.ViewPagerTabs
-import com.example.shoppinglist.util.OnSceneChange
+import com.example.shoppinglist.scenes.shopping_lists.view_pager_shoping_lists.util.interfaces.OnSceneChange
 import com.google.android.material.tabs.TabLayoutMediator
 
 class ShoppingListViewPagerFragment : Fragment() {
