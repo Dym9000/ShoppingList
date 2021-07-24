@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.ShopppingListActivity">
+    tools:context=".scenes.shopping_lists.ShoppingListActivity">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -41,6 +41,9 @@
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/nav_host_fragment_shopping_list"
+                android:name="androidx.navigation.fragment.NavHostFragment"
+                app:defaultNavHost="true"
+                app:navGraph="@navigation/nav_shopping_list"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginBottom="?attr/actionBarSize"
@@ -48,6 +51,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

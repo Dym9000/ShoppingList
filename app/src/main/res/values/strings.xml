@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">ShoppingList</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="current_list_tab_title">Current</string>
+    <string name="archived_list_tab_title">Archived</string>
+    <string name="view_pager_list_toolbar_title">Shopping List</string>
 </resources>

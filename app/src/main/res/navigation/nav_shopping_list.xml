@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_shopping_list">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_shopping_list"
+    app:startDestination="@id/shoppingListViewPagerFragment">
 
+    <fragment
+        android:id="@+id/shoppingListViewPagerFragment"
+        android:name="com.example.shoppinglist.scenes.shopping_lists.view_pager_shoping_lists.ShoppingListViewPagerFragment"
+        android:label="fragment_shopping_list_view_pager"
+        tools:layout="@layout/fragment_shopping_list_view_pager" />
 </navigation>

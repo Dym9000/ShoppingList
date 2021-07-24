@@ -1,4 +1,4 @@
-package com.example.shoppinglist.ui
+package com.example.shoppinglist.scenes
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
@@ -11,4 +11,5 @@ class ShoppingListApplication: Application(){
         super.onCreate()
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
     }
+
 }
