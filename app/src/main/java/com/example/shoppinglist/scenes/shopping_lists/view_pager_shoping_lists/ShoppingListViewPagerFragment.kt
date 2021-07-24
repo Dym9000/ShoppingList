@@ -17,7 +17,6 @@ class ShoppingListViewPagerFragment : Fragment() {
 
     private lateinit var binding: FragmentShoppingListViewPagerBinding
 
-
     private lateinit var onSceneChangedListener: OnSceneChange
 
     override fun onAttach(context: Context) {
@@ -28,7 +27,7 @@ class ShoppingListViewPagerFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_shopping_list_view_pager, container, false)

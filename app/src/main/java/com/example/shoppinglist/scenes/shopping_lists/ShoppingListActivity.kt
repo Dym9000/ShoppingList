@@ -27,4 +27,5 @@ class ShoppingListActivity : AppCompatActivity(), OnSceneChange {
     override fun setToolbarTitle(title: String) {
         mainBinding.toolbarTitleShoppingList.text = title
     }
+
 }
