@@ -11,7 +11,7 @@ data class ShoppingListEntity(
 
     @PrimaryKey(autoGenerate = true)
     @NonNull
-    val id: Int,
+    val id: Long = 0L,
 
     @NonNull
     var name: String = "Shopping List",
@@ -23,4 +23,5 @@ data class ShoppingListEntity(
     @NonNull
     var isArchived: Int = 0
 
-)
+) {
+}

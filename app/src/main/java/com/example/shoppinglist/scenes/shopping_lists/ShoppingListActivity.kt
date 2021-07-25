@@ -6,7 +6,9 @@ import androidx.databinding.DataBindingUtil
 import com.example.shoppinglist.R
 import com.example.shoppinglist.databinding.ActivityShoppingListBinding
 import com.example.shoppinglist.scenes.shopping_lists.view_pager_shoping_lists.util.interfaces.OnSceneChange
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ShoppingListActivity : AppCompatActivity(), OnSceneChange {
 
     private lateinit var mainBinding: ActivityShoppingListBinding

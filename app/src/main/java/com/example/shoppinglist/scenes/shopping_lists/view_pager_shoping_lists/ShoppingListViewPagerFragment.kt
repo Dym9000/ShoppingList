@@ -12,7 +12,9 @@ import com.example.shoppinglist.databinding.FragmentShoppingListViewPagerBinding
 import com.example.shoppinglist.scenes.shopping_lists.view_pager_shoping_lists.util.ViewPagerTabs
 import com.example.shoppinglist.scenes.shopping_lists.view_pager_shoping_lists.util.interfaces.OnSceneChange
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ShoppingListViewPagerFragment : Fragment() {
 
     private lateinit var binding: FragmentShoppingListViewPagerBinding

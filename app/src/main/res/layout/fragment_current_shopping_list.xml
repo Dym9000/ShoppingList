@@ -5,12 +5,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".scenes.shopping_lists.current_list.CurrentShoppingListFragment">
 
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.shoppinglist.scenes.shopping_lists.current_list.CurrentShoppingListViewModel" />
+    </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
         <include
             layout="@layout/recycler_view_shopping_list"
+            android:id="@+id/rec_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -28,7 +34,8 @@
             android:focusable="true"
             android:src="@drawable/ic_baseline_add_24"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            android:onClick="@{() -> viewModel.onFabClick()}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
