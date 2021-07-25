@@ -5,12 +5,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".scenes.shopping_lists.archived_list.ArchivedShoppingListFragment">
 
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.shoppinglist.scenes.shopping_lists.archived_list.ArchivedShoppingListViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <include
             layout="@layout/recycler_view_shopping_list"
+            android:id="@+id/rec_view_archived"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"

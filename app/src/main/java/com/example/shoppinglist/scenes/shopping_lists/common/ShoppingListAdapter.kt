@@ -1,4 +1,4 @@
-package com.example.shoppinglist.scenes.shopping_lists.current_list
+package com.example.shoppinglist.scenes.shopping_lists.common
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,7 +10,8 @@ import com.example.shoppinglist.domain.ShoppingListDomain
 import com.example.shoppinglist.util.DateFormatter
 
 class ShoppingListAdapter(
-    private val onShoppingListClickListener: OnShoppingListClickListener)
+    private val onShoppingListClickListener: OnShoppingListClickListener
+)
     : ListAdapter<ShoppingListDomain, RecyclerView.ViewHolder>(ShoppingDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -25,7 +26,8 @@ class ShoppingListAdapter(
 
     inner class ShoppingListViewHolder(
         private val binding: ShoppingListItemBinding,
-        private val shoppingListListener: OnShoppingListClickListener)
+        private val shoppingListListener: OnShoppingListClickListener
+    )
         : RecyclerView.ViewHolder(binding.root){
 
             fun bind(shoppingList: ShoppingListDomain){

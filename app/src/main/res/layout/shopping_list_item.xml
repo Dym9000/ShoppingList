@@ -6,7 +6,7 @@
     <data>
         <variable
             name="onShoppingListClickListener"
-            type="com.example.shoppinglist.scenes.shopping_lists.current_list.OnShoppingListClickListener" />
+            type="com.example.shoppinglist.scenes.shopping_lists.common.OnShoppingListClickListener" />
         <variable
             name="domainModel"
             type="com.example.shoppinglist.domain.ShoppingListDomain" />

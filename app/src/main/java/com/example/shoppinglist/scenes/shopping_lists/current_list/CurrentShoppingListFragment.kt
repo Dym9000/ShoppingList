@@ -10,6 +10,8 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shoppinglist.R
 import com.example.shoppinglist.databinding.FragmentCurrentShoppingListBinding
+import com.example.shoppinglist.scenes.shopping_lists.common.OnShoppingListClickListener
+import com.example.shoppinglist.scenes.shopping_lists.common.ShoppingListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -56,4 +58,10 @@ class CurrentShoppingListFragment : Fragment() {
             }
         })
     }
+
+    override fun onDestroyView() {
+        currentBinding.recView.recViewShoppingList.adapter = null
+        super.onDestroyView()
+    }
+
 }

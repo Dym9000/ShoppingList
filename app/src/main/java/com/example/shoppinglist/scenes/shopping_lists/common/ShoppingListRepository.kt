@@ -1,4 +1,4 @@
-package com.example.shoppinglist.scenes.shopping_lists.current_list
+package com.example.shoppinglist.scenes.shopping_lists.common
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
@@ -17,6 +17,12 @@ class ShoppingListRepository @Inject constructor(
 
     fun getCurrentShoppingList(): LiveData<List<ShoppingListDomain>> {
         return dao.getCurrentShoppingLists().map {
+            mapToDomain(it)
+        }
+    }
+
+    fun getArchivedShoppingList(): LiveData<List<ShoppingListDomain>> {
+        return dao.getArchivedShoppingLists().map {
             mapToDomain(it)
         }
     }
