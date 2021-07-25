@@ -1,10 +1,12 @@
 package com.example.shoppinglist.persistence.shopping_list.dao
 
 import androidx.lifecycle.LiveData
+import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import com.example.shoppinglist.persistence.shopping_list.entity.ProductEntity
 
+@Dao
 interface ProductDao {
 
     @Insert
@@ -21,4 +23,5 @@ interface ProductDao {
 
     @Query("Update product Set isInTheCart = 0 where id = :id")
     suspend fun markProductAsNotPicked(id: Int)
+
 }

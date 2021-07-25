@@ -19,7 +19,7 @@ interface ShoppingListDao {
     suspend fun archiveShoppingList (id: Int)
 
     @Query("SELECT EXISTS(SELECT 1 FROM shopping_list WHERE id = :id)")
-    suspend fun isShoppingListArchived(id: Int)
+    suspend fun isShoppingListArchived(id: Int): Int
 
     @Query("Select * from shopping_list where isArchived = 0")
     fun getCurrentShoppingLists(): LiveData<List<ShoppingListEntity>>
