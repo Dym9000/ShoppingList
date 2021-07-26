@@ -7,11 +7,13 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shoppinglist.R
 import com.example.shoppinglist.databinding.FragmentArchivedShoppingListBinding
 import com.example.shoppinglist.scenes.shopping_lists.common.OnShoppingListClickListener
 import com.example.shoppinglist.scenes.shopping_lists.common.ShoppingListAdapter
+import com.example.shoppinglist.scenes.shopping_lists.view_pager_shoping_lists.ShoppingListViewPagerFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -42,8 +44,8 @@ class ArchivedShoppingListFragment : Fragment() {
 
     private fun setRecyclerView(){
         archivedAdapter = ShoppingListAdapter(
-            OnShoppingListClickListener { listId ->
-                archivedViewModel.onClick(listId)
+            OnShoppingListClickListener { listId, isArchived ->
+                archivedViewModel.onClick(listId, isArchived)
             })
         archivedBinding.recViewArchived.recViewShoppingList.apply {
             layoutManager = LinearLayoutManager(activity)
@@ -55,6 +57,18 @@ class ArchivedShoppingListFragment : Fragment() {
         archivedViewModel.archivedShoppingList.observe(viewLifecycleOwner,{
             it?.let{
                 archivedAdapter.submitList(it)
+            }
+        })
+
+        archivedViewModel.shoppingListId.observe(viewLifecycleOwner, {
+            if (it["1"] != -1) {
+                this.findNavController().navigate(
+                    ShoppingListViewPagerFragmentDirections
+                        .actionShoppingListViewPagerFragmentToShoppingListDetailsFragment(
+                            it.getLong("1"), it.getInt("2")
+                        )
+                )
+                archivedViewModel.onNavigated()
             }
         })
     }

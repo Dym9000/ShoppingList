@@ -7,15 +7,23 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shoppinglist.R
 import com.example.shoppinglist.databinding.FragmentShoppingListDetailsBinding
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class ShoppingListDetailsFragment : Fragment() {
 
-    private val detailsViewModel: ShoppingDetailsViewModel by viewModels()
+    @Inject
+    lateinit var repository: ProductRepository
+    private val detailsArgs: ShoppingListDetailsFragmentArgs by navArgs()
+    private val detailsViewModel: ShoppingDetailsViewModel by viewModels(){
+        ShoppingDetailsViewModelFactory(repository, detailsArgs.shoppingListId, detailsArgs.isArchived)
+    }
+
     private lateinit var detailsBinding: FragmentShoppingListDetailsBinding
     private lateinit var detailsAdapter: ShoppingDetailsAdapter
 

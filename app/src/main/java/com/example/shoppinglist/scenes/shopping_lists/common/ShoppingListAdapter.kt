@@ -33,6 +33,7 @@ class ShoppingListAdapter(
             fun bind(shoppingList: ShoppingListDomain){
                 binding.shoppingListName.text = shoppingList.name
                 binding.shoppingDate.text = DateFormatter.formatDate(shoppingList.shoppingDate.time)
+                binding.domainModel = shoppingList
                 binding.onShoppingListClickListener = shoppingListListener
                 binding.executePendingBindings()
             }
@@ -57,6 +58,6 @@ class ShoppingDiffCallback(): DiffUtil.ItemCallback<ShoppingListDomain>(){
     }
 }
 
-class OnShoppingListClickListener(val clickListener: (id: Long) -> Unit){
-    fun onClick(shoppingList: ShoppingListDomain) = clickListener(shoppingList.id)
+class OnShoppingListClickListener(val clickListener: (id: Long, isArchived: Int) -> Unit){
+    fun onClick(shoppingList: ShoppingListDomain) = clickListener(shoppingList.id, shoppingList.isArchived)
 }

@@ -33,6 +33,7 @@ class ShoppingDetailsAdapter(
                 binding.productName.text = product.name
                 binding.productAmount.text = product.amount
                 binding.onShoppingListClickListener = onProductListClickListener
+                binding.domainModel = product
                 binding.executePendingBindings()
             }
     }

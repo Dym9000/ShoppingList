@@ -15,7 +15,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/very_big_padding">
+        android:paddingBottom="@dimen/very_big_padding"
+        android:onClick="@{() -> onShoppingListClickListener.onClick(domainModel)}">
 
         <ImageView
             android:id="@+id/imageView"

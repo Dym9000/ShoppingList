@@ -9,5 +9,21 @@
         android:id="@+id/shoppingListViewPagerFragment"
         android:name="com.example.shoppinglist.scenes.shopping_lists.view_pager_shoping_lists.ShoppingListViewPagerFragment"
         android:label="fragment_shopping_list_view_pager"
-        tools:layout="@layout/fragment_shopping_list_view_pager" />
+        tools:layout="@layout/fragment_shopping_list_view_pager" >
+        <action
+            android:id="@+id/action_shoppingListViewPagerFragment_to_shoppingListDetailsFragment"
+            app:destination="@id/shoppingListDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/shoppingListDetailsFragment"
+        android:name="com.example.shoppinglist.scenes.shopping_lists.list_details.ShoppingListDetailsFragment"
+        android:label="fragment_shopping_list_details"
+        tools:layout="@layout/fragment_shopping_list_details" >
+        <argument
+            android:name="shoppingListId"
+            app:argType="long" />
+        <argument
+            android:name="isArchived"
+            app:argType="integer" />
+    </fragment>
 </navigation>

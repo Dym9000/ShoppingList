@@ -7,11 +7,13 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shoppinglist.R
 import com.example.shoppinglist.databinding.FragmentCurrentShoppingListBinding
 import com.example.shoppinglist.scenes.shopping_lists.common.OnShoppingListClickListener
 import com.example.shoppinglist.scenes.shopping_lists.common.ShoppingListAdapter
+import com.example.shoppinglist.scenes.shopping_lists.view_pager_shoping_lists.ShoppingListViewPagerFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -24,7 +26,7 @@ class CurrentShoppingListFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         currentBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_current_shopping_list, container, false)
@@ -42,8 +44,8 @@ class CurrentShoppingListFragment : Fragment() {
 
     private fun setRecyclerView(){
         currentAdapter = ShoppingListAdapter(
-            OnShoppingListClickListener { listId ->
-                currentViewModel.onClick(listId)
+            OnShoppingListClickListener { listId, isArchived ->
+                currentViewModel.onClick(listId, isArchived)
             })
         currentBinding.recView.recViewShoppingList.apply {
             layoutManager = LinearLayoutManager(activity)
@@ -57,6 +59,19 @@ class CurrentShoppingListFragment : Fragment() {
                 currentAdapter.submitList(it)
             }
         })
+
+        currentViewModel.shoppingListId.observe(viewLifecycleOwner, {
+            if (it["1"] != -1) {
+                this.findNavController().navigate(
+                    ShoppingListViewPagerFragmentDirections
+                        .actionShoppingListViewPagerFragmentToShoppingListDetailsFragment(
+                            it.getLong("1"), it.getInt("2")
+                        )
+                )
+                currentViewModel.onNavigated()
+            }
+        })
+
     }
 
     override fun onDestroyView() {

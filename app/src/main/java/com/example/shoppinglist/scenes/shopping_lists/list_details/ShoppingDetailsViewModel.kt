@@ -9,18 +9,20 @@ import kotlinx.coroutines.withContext
 class ShoppingDetailsViewModel(
     private val repository: ProductRepository,
     private val shoppingListId: Long,
-    private val isCurrent: Int
+    private val isArchived: Int
 ): ViewModel() {
 
     val products = repository.getProducts(shoppingListId)
 
     fun onClick(productId: Int){
-        viewModelScope.launch {
-            withContext(Dispatchers.IO){
-                if(repository.isProductPicked(productId) == 1){
-                    repository.unmarkProduct(productId)
-                }else{
-                    repository.markProduct(productId)
+        if(isArchived == 0) {
+            viewModelScope.launch {
+                withContext(Dispatchers.IO) {
+                    if (repository.isProductPicked(productId) == 1) {
+                        repository.unmarkProduct(productId)
+                    } else {
+                        repository.markProduct(productId)
+                    }
                 }
             }
         }
