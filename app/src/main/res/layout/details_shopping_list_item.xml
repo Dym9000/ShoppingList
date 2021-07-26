@@ -5,7 +5,7 @@
 
     <data>
         <variable
-            name="onShoppingListClickListener"
+            name="onProductClickListener"
             type="com.example.shoppinglist.scenes.shopping_lists.list_details.OnProductListClickListener" />
         <variable
             name="domainModel"
@@ -15,7 +15,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/very_big_padding">
+        android:paddingBottom="@dimen/very_big_padding"
+        android:onClick="@{() -> onProductClickListener.onClick(domainModel)}">
 
         <ImageView
             android:id="@+id/imageView"
@@ -72,7 +73,8 @@
             app:layout_constraintBottom_toBottomOf="@+id/imageView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/imageView"
-            app:srcCompat="@drawable/ic_baseline_done_24" />
+            app:srcCompat="@drawable/ic_baseline_check_circle_outline_24"
+            app:isItemChecked="@{domainModel.isInTheCart()}"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

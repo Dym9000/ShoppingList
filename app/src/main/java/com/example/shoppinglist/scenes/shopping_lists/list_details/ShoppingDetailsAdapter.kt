@@ -32,8 +32,9 @@ class ShoppingDetailsAdapter(
             fun bind(product: ProductDomain){
                 binding.productName.text = product.name
                 binding.productAmount.text = product.amount
-                binding.onShoppingListClickListener = onProductListClickListener
+                binding.onProductClickListener = onProductListClickListener
                 binding.domainModel = product
+                binding.imageView2.setItemCheck(product.isInTheCart)
                 binding.executePendingBindings()
             }
     }
@@ -47,7 +48,8 @@ class ProductDiffCallback(): DiffUtil.ItemCallback<ProductDomain>(){
     }
 
     override fun areContentsTheSame(oldItem: ProductDomain, newItem: ProductDomain): Boolean {
-        return (oldItem.name == newItem.name && oldItem.amount == newItem.amount)
+        return (oldItem.name == newItem.name && oldItem.amount == newItem.amount
+                && oldItem.isInTheCart == newItem.isInTheCart)
     }
 }
 
