@@ -12,11 +12,21 @@
             type="com.example.shoppinglist.domain.ProductDomain" />
     </data>
 
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/item_by_ingredient_card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="true"
+        android:onClick="@{() -> onProductClickListener.onClick(domainModel)}"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:cardElevation="@dimen/cardview_default_elevation">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/very_big_padding"
-        android:onClick="@{() -> onProductClickListener.onClick(domainModel)}">
+        android:paddingBottom="@dimen/very_big_padding">
 
         <ImageView
             android:id="@+id/imageView"
@@ -75,6 +85,9 @@
             app:layout_constraintTop_toTopOf="@+id/imageView"
             app:srcCompat="@drawable/ic_baseline_check_circle_outline_24"
             app:isItemChecked="@{domainModel.isInTheCart()}"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 
 </layout>

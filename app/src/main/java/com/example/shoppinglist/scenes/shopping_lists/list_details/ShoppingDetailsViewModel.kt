@@ -28,20 +28,22 @@ class ShoppingDetailsViewModel(
         }
     }
 
-    fun onFabClick(){
-        viewModelScope.launch {
-            withContext(Dispatchers.IO){
-                repository.addProduct(shoppingListId)
+    fun onFabClick() {
+        if (isArchived != 1) {
+            viewModelScope.launch {
+                withContext(Dispatchers.IO) {
+                    repository.addProduct(shoppingListId)
+                }
             }
         }
     }
 
-    fun onSwiped(id: Int){
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                repository.removeProduct(id)
+    fun onSwiped(id: Int) {
+            viewModelScope.launch {
+                withContext(Dispatchers.IO) {
+                    repository.removeProduct(id)
+                }
             }
         }
-    }
 
 }

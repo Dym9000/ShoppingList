@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shoppinglist.R
 import com.example.shoppinglist.databinding.FragmentArchivedShoppingListBinding
+import com.example.shoppinglist.scenes.shopping_lists.common.ItemTopBottomSpacing
 import com.example.shoppinglist.scenes.shopping_lists.common.ItemTouchHelperHandler
 import com.example.shoppinglist.scenes.shopping_lists.common.OnShoppingListClickListener
 import com.example.shoppinglist.scenes.shopping_lists.common.ShoppingListAdapter
@@ -48,6 +49,7 @@ class ArchivedShoppingListFragment : Fragment(), CustomItemTouchHelper {
     }
 
     private fun setRecyclerView(){
+        val itemTopBottomSpacing = ItemTopBottomSpacing(2)
         archivedAdapter = ShoppingListAdapter(
             OnShoppingListClickListener { listId, isArchived ->
                 archivedViewModel.onClick(listId, isArchived)
@@ -55,6 +57,7 @@ class ArchivedShoppingListFragment : Fragment(), CustomItemTouchHelper {
         archivedBinding.recViewArchived.recViewShoppingList.apply {
             layoutManager = LinearLayoutManager(activity)
             adapter = archivedAdapter
+            addItemDecoration(itemTopBottomSpacing)
         }
     }
 
