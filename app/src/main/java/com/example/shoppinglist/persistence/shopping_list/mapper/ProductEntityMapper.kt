@@ -12,6 +12,7 @@ class ProductEntityMapper @Inject constructor(): GenericMapper<ProductEntity, Pr
     override fun mapFrom(input: ProductEntity): ProductDomain {
         return ProductDomain(
             input.id,
+            input.shoppingListId,
             input.name,
             input.amount,
             input.isInTheCart
@@ -21,6 +22,7 @@ class ProductEntityMapper @Inject constructor(): GenericMapper<ProductEntity, Pr
     override fun mapTo(input: ProductDomain): ProductEntity {
         return ProductEntity(
             input.id,
+            input.shoppingListId,
             input.name,
             input.amount,
             input.isInTheCart,

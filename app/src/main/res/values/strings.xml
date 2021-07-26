@@ -1,9 +1,12 @@
 <resources>
     <string name="app_name">ShoppingList</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="current_list_tab_title">Current</string>
     <string name="archived_list_tab_title">Archived</string>
     <string name="view_pager_list_toolbar_title">Shopping List</string>
     <string name="shopping_list_icon">Shopping list icon</string>
     <string name="fab_shopping_list">Button for adding a new shopping list</string>
+    <string name="product_icon">Product icon in the shopping list</string>
+    <string name="fab_add_product">Button for adding a new product to the list</string>
+
 </resources>

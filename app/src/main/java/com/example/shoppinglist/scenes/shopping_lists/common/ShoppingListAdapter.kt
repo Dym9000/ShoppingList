@@ -33,6 +33,8 @@ class ShoppingListAdapter(
             fun bind(shoppingList: ShoppingListDomain){
                 binding.shoppingListName.text = shoppingList.name
                 binding.shoppingDate.text = DateFormatter.formatDate(shoppingList.shoppingDate.time)
+                binding.onShoppingListClickListener = shoppingListListener
+                binding.executePendingBindings()
             }
     }
 

@@ -12,7 +12,7 @@ import com.example.shoppinglist.persistence.shopping_list.util.CalendarConverter
 @Database(entities = [
     ProductEntity::class,
     ShoppingListEntity::class
-], version = 1, exportSchema = false)
+], version = 2, exportSchema = false)
 @TypeConverters(CalendarConverter::class)
 abstract class ShoppingListDatabase: RoomDatabase() {
 

@@ -18,10 +18,10 @@ interface ProductDao {
     @Query("Select * from product")
     fun getAllProducts(): LiveData<List<ProductEntity>>
 
-    @Query("Update product Set isInTheCart = 1 where id = :id")
+    @Query("Update product Set is_in_the_cart = 1 where id = :id")
     suspend fun markProductAsPicked(id: Int)
 
-    @Query("Update product Set isInTheCart = 0 where id = :id")
+    @Query("Update product Set is_in_the_cart = 0 where id = :id")
     suspend fun markProductAsNotPicked(id: Int)
 
 }
