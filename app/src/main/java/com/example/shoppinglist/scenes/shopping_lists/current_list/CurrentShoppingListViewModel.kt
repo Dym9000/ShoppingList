@@ -42,4 +42,12 @@ class CurrentShoppingListViewModel @Inject constructor(
         }
     }
 
+    fun onSwiped(id: Int){
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                repository.moveToArchive(id.toLong())
+            }
+        }
+    }
+
 }

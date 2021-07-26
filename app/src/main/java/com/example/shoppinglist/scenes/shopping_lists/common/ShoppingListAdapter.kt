@@ -14,6 +14,10 @@ class ShoppingListAdapter(
 )
     : ListAdapter<ShoppingListDomain, RecyclerView.ViewHolder>(ShoppingDiffCallback()) {
 
+    fun getItemIdAtPosition(position: Int): Int{
+        return getItem(position).id.toInt()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ShoppingListItemBinding.inflate(inflater, parent, false)

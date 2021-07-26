@@ -8,5 +8,6 @@
     <string name="fab_shopping_list">Button for adding a new shopping list</string>
     <string name="product_icon">Product icon in the shopping list</string>
     <string name="fab_add_product">Button for adding a new product to the list</string>
+    <string name="shopping_details_toolbar_title">Shopping Details</string>
 
 </resources>

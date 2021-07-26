@@ -1,21 +1,27 @@
 package com.example.shoppinglist.scenes.shopping_lists.list_details
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shoppinglist.R
 import com.example.shoppinglist.databinding.FragmentShoppingListDetailsBinding
+import com.example.shoppinglist.scenes.shopping_lists.common.ItemTouchHelperHandler
+import com.example.shoppinglist.scenes.shopping_lists.common.interfaces.CustomItemTouchHelper
+import com.example.shoppinglist.scenes.shopping_lists.common.interfaces.OnSceneChange
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ShoppingListDetailsFragment : Fragment() {
+class ShoppingListDetailsFragment : Fragment(), CustomItemTouchHelper {
 
     @Inject
     lateinit var repository: ProductRepository
@@ -26,6 +32,13 @@ class ShoppingListDetailsFragment : Fragment() {
 
     private lateinit var detailsBinding: FragmentShoppingListDetailsBinding
     private lateinit var detailsAdapter: ShoppingDetailsAdapter
+
+    private lateinit var onSceneChangedListener: OnSceneChange
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        onSceneChangedListener = context as OnSceneChange
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,6 +55,7 @@ class ShoppingListDetailsFragment : Fragment() {
 
         setRecyclerView()
         setObservers()
+        setItemTouchHelper()
 
         return detailsBinding.root
     }
@@ -63,6 +77,26 @@ class ShoppingListDetailsFragment : Fragment() {
                 detailsAdapter.submitList(it)
             }
         })
+    }
+
+    private fun setItemTouchHelper(){
+        val swipeHandler = ItemTouchHelperHandler(this)
+        val itemTouchHelper = ItemTouchHelper(swipeHandler)
+        itemTouchHelper.attachToRecyclerView(detailsBinding.recView.recViewShoppingList)
+    }
+
+    override fun onSwiped(position: Int){
+        val id = detailsAdapter.getItemIdAtPosition(position)
+        detailsViewModel.onSwiped(id)
+        Toast.makeText(activity, "Removed from the list", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        onSceneChangedListener.apply{
+            setToolbarExpanded(true)
+            setToolbarTitle(getString(R.string.shopping_details_toolbar_title))
+        }
     }
 
     override fun onDestroyView() {

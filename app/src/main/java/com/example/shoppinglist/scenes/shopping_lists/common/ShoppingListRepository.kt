@@ -36,4 +36,12 @@ class ShoppingListRepository @Inject constructor(
         dao.addShoppingList(newShoppingList)
     }
 
+    suspend fun removeShoppingList(id: Long){
+        dao.removeShoppingList(id)
+    }
+
+    suspend fun moveToArchive(id: Long){
+        dao.archiveShoppingList(id)
+    }
+
 }

@@ -17,14 +17,14 @@ interface ShoppingListDao {
 
 
     @Query("Delete from shopping_list where id = :id")
-    suspend fun removeShoppingList(id: Int)
+    suspend fun removeShoppingList(id: Long)
 
     @Query("Delete from product where id = :id")
     suspend fun removeProduct(id: Int)
 
 
     @Query("Update shopping_list Set isArchived = 1 where id = :id")
-    suspend fun archiveShoppingList (id: Int)
+    suspend fun archiveShoppingList (id: Long)
 
     @Query("Update product Set is_in_the_cart = 1 where id = :id")
     suspend fun markProductAsPicked(id: Int)
@@ -34,7 +34,7 @@ interface ShoppingListDao {
 
 
     @Query("SELECT EXISTS(SELECT 1 FROM shopping_list WHERE id = :id)")
-    suspend fun isShoppingListArchived(id: Int): Int
+    suspend fun isShoppingListArchived(id: Long): Int
 
     @Query("SELECT EXISTS(SELECT 1 FROM product WHERE id = :id and is_in_the_cart = 1)")
     suspend fun isProductPicked(id: Int): Int

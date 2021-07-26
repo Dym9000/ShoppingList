@@ -36,4 +36,12 @@ class ShoppingDetailsViewModel(
         }
     }
 
+    fun onSwiped(id: Int){
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                repository.removeProduct(id)
+            }
+        }
+    }
+
 }

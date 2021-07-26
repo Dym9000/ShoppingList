@@ -26,6 +26,10 @@ class ProductRepository @Inject constructor(
         return productMapper.mapFromList(list)
     }
 
+    suspend fun removeProduct(id: Int){
+        shoppingDao.removeProduct(id)
+    }
+
     suspend fun addProduct(id: Long){
         val newProduct = ProductEntity(shoppingListId = id)
         shoppingDao.addProduct(newProduct)

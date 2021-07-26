@@ -4,20 +4,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shoppinglist.R
 import com.example.shoppinglist.databinding.FragmentCurrentShoppingListBinding
+import com.example.shoppinglist.scenes.shopping_lists.common.ItemTouchHelperHandler
 import com.example.shoppinglist.scenes.shopping_lists.common.OnShoppingListClickListener
 import com.example.shoppinglist.scenes.shopping_lists.common.ShoppingListAdapter
+import com.example.shoppinglist.scenes.shopping_lists.common.interfaces.CustomItemTouchHelper
 import com.example.shoppinglist.scenes.shopping_lists.view_pager_shoping_lists.ShoppingListViewPagerFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CurrentShoppingListFragment : Fragment() {
+class CurrentShoppingListFragment : Fragment(), CustomItemTouchHelper {
 
     private val currentViewModel: CurrentShoppingListViewModel by viewModels()
     private lateinit var currentBinding: FragmentCurrentShoppingListBinding
@@ -38,6 +42,7 @@ class CurrentShoppingListFragment : Fragment() {
 
             setRecyclerView()
             setObservers()
+            setItemTouchHelper()
 
             return currentBinding.root
     }
@@ -72,6 +77,18 @@ class CurrentShoppingListFragment : Fragment() {
             }
         })
 
+    }
+
+    private fun setItemTouchHelper(){
+        val swipeHandler = ItemTouchHelperHandler(this)
+        val itemTouchHelper = ItemTouchHelper(swipeHandler)
+        itemTouchHelper.attachToRecyclerView(currentBinding.recView.recViewShoppingList)
+    }
+
+    override fun onSwiped(position: Int){
+        val id = currentAdapter.getItemIdAtPosition(position)
+        currentViewModel.onSwiped(id)
+        Toast.makeText(activity, "Moved to archive", Toast.LENGTH_SHORT).show()
     }
 
     override fun onDestroyView() {

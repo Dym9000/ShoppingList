@@ -4,20 +4,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shoppinglist.R
 import com.example.shoppinglist.databinding.FragmentArchivedShoppingListBinding
+import com.example.shoppinglist.scenes.shopping_lists.common.ItemTouchHelperHandler
 import com.example.shoppinglist.scenes.shopping_lists.common.OnShoppingListClickListener
 import com.example.shoppinglist.scenes.shopping_lists.common.ShoppingListAdapter
+import com.example.shoppinglist.scenes.shopping_lists.common.interfaces.CustomItemTouchHelper
 import com.example.shoppinglist.scenes.shopping_lists.view_pager_shoping_lists.ShoppingListViewPagerFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ArchivedShoppingListFragment : Fragment() {
+class ArchivedShoppingListFragment : Fragment(), CustomItemTouchHelper {
 
     private val archivedViewModel: ArchivedShoppingListViewModel by viewModels()
     private lateinit var archivedBinding: FragmentArchivedShoppingListBinding
@@ -38,6 +42,7 @@ class ArchivedShoppingListFragment : Fragment() {
 
         setRecyclerView()
         setObservers()
+        setItemTouchHelper()
 
         return archivedBinding.root
     }
@@ -71,6 +76,18 @@ class ArchivedShoppingListFragment : Fragment() {
                 archivedViewModel.onNavigated()
             }
         })
+    }
+
+    private fun setItemTouchHelper(){
+        val swipeHandler = ItemTouchHelperHandler(this)
+        val itemTouchHelper = ItemTouchHelper(swipeHandler)
+        itemTouchHelper.attachToRecyclerView(archivedBinding.recViewArchived.recViewShoppingList)
+    }
+
+    override fun onSwiped(position: Int){
+        val id = archivedAdapter.getItemIdAtPosition(position)
+        archivedViewModel.onSwiped(id)
+        Toast.makeText(activity, "List removed", Toast.LENGTH_SHORT).show()
     }
 
     override fun onDestroyView() {

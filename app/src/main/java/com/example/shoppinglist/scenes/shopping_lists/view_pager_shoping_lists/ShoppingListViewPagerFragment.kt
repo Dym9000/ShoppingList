@@ -9,8 +9,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.shoppinglist.R
 import com.example.shoppinglist.databinding.FragmentShoppingListViewPagerBinding
+import com.example.shoppinglist.scenes.shopping_lists.common.interfaces.OnSceneChange
 import com.example.shoppinglist.scenes.shopping_lists.view_pager_shoping_lists.util.ViewPagerTabs
-import com.example.shoppinglist.scenes.shopping_lists.view_pager_shoping_lists.util.interfaces.OnSceneChange
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -44,7 +44,7 @@ class ShoppingListViewPagerFragment : Fragment() {
             tab.text = getTabTitle(position)
         }.attach()
 
-        setToolbarTitle()
+        setToolbar()
 
         return binding.root
     }
@@ -65,8 +65,11 @@ class ShoppingListViewPagerFragment : Fragment() {
         }
     }
 
-    private fun setToolbarTitle(){
-        onSceneChangedListener.setToolbarTitle(getString(R.string.view_pager_list_toolbar_title))
+    private fun setToolbar(){
+        onSceneChangedListener.apply{
+            setToolbarExpanded(true)
+            setToolbarTitle(getString(R.string.view_pager_list_toolbar_title))
+        }
     }
 
 }
