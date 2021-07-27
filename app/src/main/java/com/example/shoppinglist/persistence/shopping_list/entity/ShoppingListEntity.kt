@@ -23,5 +23,4 @@ data class ShoppingListEntity(
     @NonNull
     var isArchived: Int = 0
 
-) {
-}
+)

@@ -1,4 +1,4 @@
-package com.example.shoppinglist.scenes.shopping_lists.list_details
+package com.example.shoppinglist.scenes.shopping_lists.list_details.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
@@ -10,41 +10,37 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class ProductRepository @Inject constructor(
+class ProductRepositoryImpl @Inject constructor(
     private val shoppingDao: ShoppingListDao,
     private val productMapper: ProductEntityMapper
-){
+): ProductRepository {
 
-    fun getProducts(id: Long): LiveData<List<ProductDomain>>{
+    override fun getProducts(id: Long): LiveData<List<ProductDomain>> {
         val products = shoppingDao.getAllProducts(id)
         return products.map {
             mapToDomain(it.products)
         }
     }
 
-    private fun mapToDomain(list: List<ProductEntity>): List<ProductDomain>{
+    private fun mapToDomain(list: List<ProductEntity>): List<ProductDomain> {
         return productMapper.mapFromList(list)
     }
 
-    suspend fun removeProduct(id: Int){
+    override suspend fun removeProduct(id: Int) {
         shoppingDao.removeProduct(id)
     }
 
-    suspend fun addProduct(id: Long){
+    override suspend fun addProduct(id: Long) {
         val newProduct = ProductEntity(shoppingListId = id)
         shoppingDao.addProduct(newProduct)
     }
 
-    suspend fun isProductPicked(productId: Int): Int{
+    override suspend fun isProductPicked(productId: Int): Int {
         return shoppingDao.isProductPicked(productId)
     }
 
-    suspend fun markProduct(id: Int){
-        shoppingDao.markProductAsPicked(id)
-    }
-
-    suspend fun unmarkProduct(id: Int){
-        shoppingDao.markProductAsNotPicked(id)
+    override suspend fun updateProductCheck(id: Int, check:Int) {
+        shoppingDao.updateProductCheck(id, check)
     }
 
 }

@@ -23,7 +23,7 @@ data class ProductEntity(
     var amount: String = "2500 g",
 
     @NonNull
-    @ColumnInfo(name= "is_in_the_cart")
+    @ColumnInfo(name = "is_in_the_cart")
     var isInTheCart: Int = 0
 
 )

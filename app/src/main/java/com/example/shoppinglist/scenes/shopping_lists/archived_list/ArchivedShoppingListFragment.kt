@@ -34,7 +34,8 @@ class ArchivedShoppingListFragment : Fragment(), CustomItemTouchHelper {
     ): View {
 
         archivedBinding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_archived_shopping_list, container, false)
+            inflater, R.layout.fragment_archived_shopping_list, container, false
+        )
 
         archivedBinding.apply {
             lifecycleOwner = this@ArchivedShoppingListFragment.viewLifecycleOwner
@@ -48,8 +49,8 @@ class ArchivedShoppingListFragment : Fragment(), CustomItemTouchHelper {
         return archivedBinding.root
     }
 
-    private fun setRecyclerView(){
-        val itemTopBottomSpacing = ItemTopBottomSpacing(2)
+    private fun setRecyclerView() {
+        val itemTopBottomSpacing = ItemTopBottomSpacing(3)
         archivedAdapter = ShoppingListAdapter(
             OnShoppingListClickListener { listId, isArchived ->
                 archivedViewModel.onClick(listId, isArchived)
@@ -61,9 +62,9 @@ class ArchivedShoppingListFragment : Fragment(), CustomItemTouchHelper {
         }
     }
 
-    private fun setObservers(){
-        archivedViewModel.archivedShoppingList.observe(viewLifecycleOwner,{
-            it?.let{
+    private fun setObservers() {
+        archivedViewModel.archivedShoppingList.observe(viewLifecycleOwner, {
+            it?.let {
                 archivedAdapter.submitList(it)
             }
         })
@@ -81,13 +82,13 @@ class ArchivedShoppingListFragment : Fragment(), CustomItemTouchHelper {
         })
     }
 
-    private fun setItemTouchHelper(){
+    private fun setItemTouchHelper() {
         val swipeHandler = ItemTouchHelperHandler(this)
         val itemTouchHelper = ItemTouchHelper(swipeHandler)
         itemTouchHelper.attachToRecyclerView(archivedBinding.recViewArchived.recViewShoppingList)
     }
 
-    override fun onSwiped(position: Int){
+    override fun onSwiped(position: Int) {
         val id = archivedAdapter.getItemIdAtPosition(position)
         archivedViewModel.onSwiped(id)
         Toast.makeText(activity, "List removed", Toast.LENGTH_SHORT).show()

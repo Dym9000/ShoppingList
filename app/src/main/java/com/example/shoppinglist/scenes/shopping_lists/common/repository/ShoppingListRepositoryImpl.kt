@@ -1,4 +1,4 @@
-package com.example.shoppinglist.scenes.shopping_lists.common
+package com.example.shoppinglist.scenes.shopping_lists.common.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
@@ -10,37 +10,37 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class ShoppingListRepository @Inject constructor(
+class ShoppingListRepositoryImpl @Inject constructor(
     private val dao: ShoppingListDao,
     private val mapper: ShoppingListEntityMapper
-) {
+): ShoppingListRepository {
 
-    fun getCurrentShoppingList(): LiveData<List<ShoppingListDomain>> {
+    override fun getCurrentShoppingList(): LiveData<List<ShoppingListDomain>> {
         return dao.getCurrentShoppingLists().map {
             mapToDomain(it)
         }
     }
 
-    fun getArchivedShoppingList(): LiveData<List<ShoppingListDomain>> {
+    override fun getArchivedShoppingList(): LiveData<List<ShoppingListDomain>> {
         return dao.getArchivedShoppingLists().map {
             mapToDomain(it)
         }
     }
 
-    private fun mapToDomain(list: List<ShoppingListEntity>): List<ShoppingListDomain>{
+    private fun mapToDomain(list: List<ShoppingListEntity>): List<ShoppingListDomain> {
         return mapper.mapFromList(list)
     }
 
-    suspend fun addShoppingList(){
+    override suspend fun addShoppingList() {
         val newShoppingList = ShoppingListEntity()
         dao.addShoppingList(newShoppingList)
     }
 
-    suspend fun removeShoppingList(id: Long){
+    override suspend fun removeShoppingList(id: Long) {
         dao.removeShoppingList(id)
     }
 
-    suspend fun moveToArchive(id: Long){
+    override suspend fun moveToArchive(id: Long) {
         dao.archiveShoppingList(id)
     }
 

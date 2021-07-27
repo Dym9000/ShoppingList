@@ -7,8 +7,8 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class ShoppingListEntityMapper @Inject constructor()
-    : GenericMapper<ShoppingListEntity, ShoppingListDomain>() {
+class ShoppingListEntityMapper @Inject constructor() :
+    GenericMapper<ShoppingListEntity, ShoppingListDomain>() {
 
     override fun mapFrom(input: ShoppingListEntity): ShoppingListDomain {
         return ShoppingListDomain(

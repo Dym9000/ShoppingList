@@ -11,10 +11,9 @@ import com.example.shoppinglist.util.DateFormatter
 
 class ShoppingListAdapter(
     private val onShoppingListClickListener: OnShoppingListClickListener
-)
-    : ListAdapter<ShoppingListDomain, RecyclerView.ViewHolder>(ShoppingDiffCallback()) {
+) : ListAdapter<ShoppingListDomain, RecyclerView.ViewHolder>(ShoppingDiffCallback()) {
 
-    fun getItemIdAtPosition(position: Int): Int{
+    fun getItemIdAtPosition(position: Int): Int {
         return getItem(position).id.toInt()
     }
 
@@ -31,21 +30,20 @@ class ShoppingListAdapter(
     inner class ShoppingListViewHolder(
         private val binding: ShoppingListItemBinding,
         private val shoppingListListener: OnShoppingListClickListener
-    )
-        : RecyclerView.ViewHolder(binding.root){
+    ) : RecyclerView.ViewHolder(binding.root) {
 
-            fun bind(shoppingList: ShoppingListDomain){
-                binding.shoppingListName.text = shoppingList.name
-                binding.shoppingDate.text = DateFormatter.formatDate(shoppingList.shoppingDate.time)
-                binding.domainModel = shoppingList
-                binding.onShoppingListClickListener = shoppingListListener
-                binding.executePendingBindings()
-            }
+        fun bind(shoppingList: ShoppingListDomain) {
+            binding.shoppingListName.text = shoppingList.name
+            binding.shoppingDate.text = DateFormatter.formatDate(shoppingList.shoppingDate.time)
+            binding.domainModel = shoppingList
+            binding.onShoppingListClickListener = shoppingListListener
+            binding.executePendingBindings()
+        }
     }
 
 }
 
-class ShoppingDiffCallback(): DiffUtil.ItemCallback<ShoppingListDomain>(){
+class ShoppingDiffCallback : DiffUtil.ItemCallback<ShoppingListDomain>() {
 
     override fun areItemsTheSame(
         oldItem: ShoppingListDomain,
@@ -62,6 +60,7 @@ class ShoppingDiffCallback(): DiffUtil.ItemCallback<ShoppingListDomain>(){
     }
 }
 
-class OnShoppingListClickListener(val clickListener: (id: Long, isArchived: Int) -> Unit){
-    fun onClick(shoppingList: ShoppingListDomain) = clickListener(shoppingList.id, shoppingList.isArchived)
+class OnShoppingListClickListener(val clickListener: (id: Long, isArchived: Int) -> Unit) {
+    fun onClick(shoppingList: ShoppingListDomain) =
+        clickListener(shoppingList.id, shoppingList.isArchived)
 }

@@ -10,10 +10,9 @@ import com.example.shoppinglist.domain.ProductDomain
 
 class ShoppingDetailsAdapter(
     private val onProductListClickListener: OnProductListClickListener
-)
-    : ListAdapter<ProductDomain, RecyclerView.ViewHolder>(ProductDiffCallback()) {
+) : ListAdapter<ProductDomain, RecyclerView.ViewHolder>(ProductDiffCallback()) {
 
-    fun getItemIdAtPosition(position: Int): Int{
+    fun getItemIdAtPosition(position: Int): Int {
         return getItem(position).id
     }
 
@@ -30,22 +29,21 @@ class ShoppingDetailsAdapter(
     inner class ProductViewHolder(
         private val binding: DetailsShoppingListItemBinding,
         private val onProductListClickListener: OnProductListClickListener
-    )
-        : RecyclerView.ViewHolder(binding.root){
+    ) : RecyclerView.ViewHolder(binding.root) {
 
-            fun bind(product: ProductDomain){
-                binding.productName.text = product.name
-                binding.productAmount.text = product.amount
-                binding.onProductClickListener = onProductListClickListener
-                binding.domainModel = product
-                binding.imageView2.setItemCheck(product.isInTheCart)
-                binding.executePendingBindings()
-            }
+        fun bind(product: ProductDomain) {
+            binding.productName.text = product.name
+            binding.productAmount.text = product.amount
+            binding.onProductClickListener = onProductListClickListener
+            binding.domainModel = product
+            binding.imageView2.setItemCheck(product.isInTheCart)
+            binding.executePendingBindings()
+        }
     }
 
 }
 
-class ProductDiffCallback(): DiffUtil.ItemCallback<ProductDomain>(){
+class ProductDiffCallback : DiffUtil.ItemCallback<ProductDomain>() {
 
     override fun areItemsTheSame(oldItem: ProductDomain, newItem: ProductDomain): Boolean {
         return oldItem.id == newItem.id
@@ -57,6 +55,6 @@ class ProductDiffCallback(): DiffUtil.ItemCallback<ProductDomain>(){
     }
 }
 
-class OnProductListClickListener(val clickListener: (id: Int) -> Unit){
+class OnProductListClickListener(val clickListener: (id: Int) -> Unit) {
     fun onClick(product: ProductDomain) = clickListener(product.id)
 }

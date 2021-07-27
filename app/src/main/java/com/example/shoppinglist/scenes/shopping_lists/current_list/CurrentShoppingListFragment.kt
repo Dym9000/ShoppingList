@@ -34,22 +34,23 @@ class CurrentShoppingListFragment : Fragment(), CustomItemTouchHelper {
     ): View {
 
         currentBinding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_current_shopping_list, container, false)
+            inflater, R.layout.fragment_current_shopping_list, container, false
+        )
 
         currentBinding.apply {
             lifecycleOwner = this@CurrentShoppingListFragment.viewLifecycleOwner
             viewModel = currentViewModel
         }
 
-            setRecyclerView()
-            setObservers()
-            setItemTouchHelper()
+        setRecyclerView()
+        setObservers()
+        setItemTouchHelper()
 
-            return currentBinding.root
+        return currentBinding.root
     }
 
-    private fun setRecyclerView(){
-        val itemTopBottomSpacing = ItemTopBottomSpacing(2)
+    private fun setRecyclerView() {
+        val itemTopBottomSpacing = ItemTopBottomSpacing(3)
         currentAdapter = ShoppingListAdapter(
             OnShoppingListClickListener { listId, isArchived ->
                 currentViewModel.onClick(listId, isArchived)
@@ -61,9 +62,9 @@ class CurrentShoppingListFragment : Fragment(), CustomItemTouchHelper {
         }
     }
 
-    private fun setObservers(){
-        currentViewModel.currentShoppingList.observe(viewLifecycleOwner,{
-            it?.let{
+    private fun setObservers() {
+        currentViewModel.currentShoppingList.observe(viewLifecycleOwner, {
+            it?.let {
                 currentAdapter.submitList(it)
             }
         })
@@ -82,13 +83,13 @@ class CurrentShoppingListFragment : Fragment(), CustomItemTouchHelper {
 
     }
 
-    private fun setItemTouchHelper(){
+    private fun setItemTouchHelper() {
         val swipeHandler = ItemTouchHelperHandler(this)
         val itemTouchHelper = ItemTouchHelper(swipeHandler)
         itemTouchHelper.attachToRecyclerView(currentBinding.recView.recViewShoppingList)
     }
 
-    override fun onSwiped(position: Int){
+    override fun onSwiped(position: Int) {
         val id = currentAdapter.getItemIdAtPosition(position)
         currentViewModel.onSwiped(id)
         Toast.makeText(activity, "Moved to archive", Toast.LENGTH_SHORT).show()

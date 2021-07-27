@@ -5,8 +5,8 @@ import java.util.*
 
 object DateFormatter {
 
-    fun formatDate(date: Date): String{
-        val newDateFormat = SimpleDateFormat("dd  MMM  yyyy", Locale.getDefault() )
+    fun formatDate(date: Date): String {
+        val newDateFormat = SimpleDateFormat("dd  MMM  yyyy", Locale.getDefault())
         return newDateFormat.format(date)
     }
 

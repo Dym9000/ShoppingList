@@ -32,7 +32,8 @@ class ShoppingListViewPagerFragment : Fragment() {
     ): View {
 
         binding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_shopping_list_view_pager, container, false)
+            inflater, R.layout.fragment_shopping_list_view_pager, container, false
+        )
 
         val viewPager = binding.viewPagerShoppingListVp
         val tabLayout = binding.tabsShoppingListVp
@@ -65,8 +66,8 @@ class ShoppingListViewPagerFragment : Fragment() {
         }
     }
 
-    private fun setToolbar(){
-        onSceneChangedListener.apply{
+    private fun setToolbar() {
+        onSceneChangedListener.apply {
             setToolbarExpanded(true)
             setToolbarTitle(getString(R.string.view_pager_list_toolbar_title))
         }

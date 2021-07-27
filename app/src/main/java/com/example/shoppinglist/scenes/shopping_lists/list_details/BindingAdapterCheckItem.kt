@@ -9,10 +9,10 @@ import androidx.databinding.BindingAdapter
 import com.example.shoppinglist.R
 
 @BindingAdapter("app:isItemChecked")
-fun ImageView.setItemCheck(isChecked: Int?){
+fun ImageView.setItemCheck(isChecked: Int?) {
     isChecked.let {
         val checkColor = ContextCompat.getColor(context, R.color.purple_200)
-        when(isChecked){
+        when (isChecked) {
             1 -> ImageViewCompat.setImageTintList(this, ColorStateList.valueOf(checkColor))
             else -> ImageViewCompat.setImageTintList(this, ColorStateList.valueOf(Color.WHITE))
         }

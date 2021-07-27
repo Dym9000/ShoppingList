@@ -18,6 +18,7 @@ import com.example.shoppinglist.scenes.shopping_lists.common.ItemTopBottomSpacin
 import com.example.shoppinglist.scenes.shopping_lists.common.ItemTouchHelperHandler
 import com.example.shoppinglist.scenes.shopping_lists.common.interfaces.CustomItemTouchHelper
 import com.example.shoppinglist.scenes.shopping_lists.common.interfaces.OnSceneChange
+import com.example.shoppinglist.scenes.shopping_lists.list_details.repository.ProductRepositoryImpl
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -25,10 +26,14 @@ import javax.inject.Inject
 class ShoppingListDetailsFragment : Fragment(), CustomItemTouchHelper {
 
     @Inject
-    lateinit var repository: ProductRepository
+    lateinit var repository: ProductRepositoryImpl
     private val detailsArgs: ShoppingListDetailsFragmentArgs by navArgs()
-    private val detailsViewModel: ShoppingDetailsViewModel by viewModels(){
-        ShoppingDetailsViewModelFactory(repository, detailsArgs.shoppingListId, detailsArgs.isArchived)
+    private val detailsViewModel: ShoppingDetailsViewModel by viewModels {
+        ShoppingDetailsViewModelFactory(
+            repository,
+            detailsArgs.shoppingListId,
+            detailsArgs.isArchived
+        )
     }
 
     private lateinit var detailsBinding: FragmentShoppingListDetailsBinding
@@ -47,7 +52,8 @@ class ShoppingListDetailsFragment : Fragment(), CustomItemTouchHelper {
     ): View {
 
         detailsBinding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_shopping_list_details, container, false)
+            inflater, R.layout.fragment_shopping_list_details, container, false
+        )
 
         detailsBinding.apply {
             lifecycleOwner = this@ShoppingListDetailsFragment.viewLifecycleOwner
@@ -56,15 +62,15 @@ class ShoppingListDetailsFragment : Fragment(), CustomItemTouchHelper {
 
         setRecyclerView()
         setObservers()
-        if(detailsArgs.isArchived != 1) {
+        if (detailsArgs.isArchived != 1) {
             setItemTouchHelper()
         }
 
         return detailsBinding.root
     }
 
-    private fun setRecyclerView(){
-        val itemTopBottomSpacing = ItemTopBottomSpacing(2)
+    private fun setRecyclerView() {
+        val itemTopBottomSpacing = ItemTopBottomSpacing(3)
         detailsAdapter = ShoppingDetailsAdapter(
             OnProductListClickListener { productId ->
                 detailsViewModel.onClick(productId)
@@ -76,21 +82,21 @@ class ShoppingListDetailsFragment : Fragment(), CustomItemTouchHelper {
         }
     }
 
-    private fun setObservers(){
-        detailsViewModel.products.observe(viewLifecycleOwner,{
-            it?.let{
+    private fun setObservers() {
+        detailsViewModel.products.observe(viewLifecycleOwner, {
+            it?.let {
                 detailsAdapter.submitList(it)
             }
         })
     }
 
-    private fun setItemTouchHelper(){
+    private fun setItemTouchHelper() {
         val swipeHandler = ItemTouchHelperHandler(this)
         val itemTouchHelper = ItemTouchHelper(swipeHandler)
         itemTouchHelper.attachToRecyclerView(detailsBinding.recView.recViewShoppingList)
     }
 
-    override fun onSwiped(position: Int){
+    override fun onSwiped(position: Int) {
         val id = detailsAdapter.getItemIdAtPosition(position)
         detailsViewModel.onSwiped(id)
         Toast.makeText(activity, "Removed from the list", Toast.LENGTH_SHORT).show()
@@ -98,7 +104,7 @@ class ShoppingListDetailsFragment : Fragment(), CustomItemTouchHelper {
 
     override fun onResume() {
         super.onResume()
-        onSceneChangedListener.apply{
+        onSceneChangedListener.apply {
             setToolbarExpanded(true)
             setToolbarTitle(getString(R.string.shopping_details_toolbar_title))
         }

@@ -24,17 +24,11 @@ interface ShoppingListDao {
 
 
     @Query("Update shopping_list Set isArchived = 1 where id = :id")
-    suspend fun archiveShoppingList (id: Long)
+    suspend fun archiveShoppingList(id: Long)
 
-    @Query("Update product Set is_in_the_cart = 1 where id = :id")
-    suspend fun markProductAsPicked(id: Int)
+    @Query("Update product Set is_in_the_cart = :check where id = :id")
+    suspend fun updateProductCheck(id: Int, check: Int)
 
-    @Query("Update product Set is_in_the_cart = 0 where id = :id")
-    suspend fun markProductAsNotPicked(id: Int)
-
-
-    @Query("SELECT EXISTS(SELECT 1 FROM shopping_list WHERE id = :id)")
-    suspend fun isShoppingListArchived(id: Long): Int
 
     @Query("SELECT EXISTS(SELECT 1 FROM product WHERE id = :id and is_in_the_cart = 1)")
     suspend fun isProductPicked(id: Int): Int

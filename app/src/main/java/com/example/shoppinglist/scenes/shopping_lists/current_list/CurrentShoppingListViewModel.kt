@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.shoppinglist.scenes.shopping_lists.common.ShoppingListRepository
+import com.example.shoppinglist.scenes.shopping_lists.common.repository.ShoppingListRepositoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -15,8 +15,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CurrentShoppingListViewModel @Inject constructor(
-    private val repository: ShoppingListRepository
-): ViewModel() {
+    private val repository: ShoppingListRepositoryImpl
+) : ViewModel() {
 
     val currentShoppingList = repository.getCurrentShoppingList()
 
@@ -26,7 +26,7 @@ class CurrentShoppingListViewModel @Inject constructor(
             return _shoppingListId
         }
 
-    fun onClick(id: Long, isArchived: Int){
+    fun onClick(id: Long, isArchived: Int) {
         _shoppingListId.value = bundleOf(Pair("1", id), Pair("2", isArchived))
     }
 
@@ -34,15 +34,15 @@ class CurrentShoppingListViewModel @Inject constructor(
         _shoppingListId.value = bundleOf(Pair("1", -1))
     }
 
-    fun onFabClick(){
+    fun onFabClick() {
         viewModelScope.launch {
-            withContext(Dispatchers.IO){
+            withContext(Dispatchers.IO) {
                 repository.addShoppingList()
             }
         }
     }
 
-    fun onSwiped(id: Int){
+    fun onSwiped(id: Int) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 repository.moveToArchive(id.toLong())

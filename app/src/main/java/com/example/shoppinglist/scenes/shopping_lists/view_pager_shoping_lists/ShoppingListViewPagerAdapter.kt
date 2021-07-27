@@ -6,7 +6,7 @@ import com.example.shoppinglist.scenes.shopping_lists.archived_list.ArchivedShop
 import com.example.shoppinglist.scenes.shopping_lists.current_list.CurrentShoppingListFragment
 import com.example.shoppinglist.scenes.shopping_lists.view_pager_shoping_lists.util.ViewPagerTabs
 
-class ShoppingListViewPagerAdapter(fragment: Fragment): FragmentStateAdapter(fragment) {
+class ShoppingListViewPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
 
     /**
      * Map of tab pages associated with their respective fragments

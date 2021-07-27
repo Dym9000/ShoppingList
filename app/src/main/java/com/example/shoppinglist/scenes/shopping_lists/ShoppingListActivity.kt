@@ -29,7 +29,7 @@ class ShoppingListActivity : AppCompatActivity(), OnSceneChange {
         setupActionBar()
     }
 
-    private fun setupActionBar(){
+    private fun setupActionBar() {
         setSupportActionBar(mainBinding.toolbarShoppingList)
         setupActionBarWithNavController(navController)
         this.supportActionBar?.setDisplayShowTitleEnabled(false)
@@ -39,7 +39,7 @@ class ShoppingListActivity : AppCompatActivity(), OnSceneChange {
         mainBinding.toolbarTitleShoppingList.text = title
     }
 
-    override fun setToolbarExpanded(isExpanded:Boolean) {
+    override fun setToolbarExpanded(isExpanded: Boolean) {
         mainBinding.appBarShoppingList.setExpanded(isExpanded)
     }
 

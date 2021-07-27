@@ -7,7 +7,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class ProductEntityMapper @Inject constructor(): GenericMapper<ProductEntity, ProductDomain>() {
+class ProductEntityMapper @Inject constructor() : GenericMapper<ProductEntity, ProductDomain>() {
 
     override fun mapFrom(input: ProductEntity): ProductDomain {
         return ProductDomain(
