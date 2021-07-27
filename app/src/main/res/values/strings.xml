@@ -9,5 +9,8 @@
     <string name="product_icon">Product icon in the shopping list</string>
     <string name="fab_add_product">Button for adding a new product to the list</string>
     <string name="shopping_details_toolbar_title">Shopping Details</string>
+    <string name="dialog_new_shopping_list_enter_name_hint">enter name...</string>
+    <string name="dialog_new_shopping_list_shopping_date">shopping date</string>
+    <string name="dialog_new_shopping_list_choose_date">Choose Date</string>
 
 </resources>

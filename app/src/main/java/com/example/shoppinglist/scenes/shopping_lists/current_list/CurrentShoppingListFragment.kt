@@ -45,6 +45,7 @@ class CurrentShoppingListFragment : Fragment(), CustomItemTouchHelper {
         setRecyclerView()
         setObservers()
         setItemTouchHelper()
+        setOnFabClickListener()
 
         return currentBinding.root
     }
@@ -70,11 +71,11 @@ class CurrentShoppingListFragment : Fragment(), CustomItemTouchHelper {
         })
 
         currentViewModel.shoppingListId.observe(viewLifecycleOwner, {
-            if (it["1"] != -1) {
+            if (it[Constants.BUNDLE_KEY_1] != -1) {
                 this.findNavController().navigate(
                     ShoppingListViewPagerFragmentDirections
                         .actionShoppingListViewPagerFragmentToShoppingListDetailsFragment(
-                            it.getLong("1"), it.getInt("2")
+                            it.getLong(Constants.BUNDLE_KEY_1), it.getInt(Constants.BUNDLE_KEY_2)
                         )
                 )
                 currentViewModel.onNavigated()
@@ -93,6 +94,10 @@ class CurrentShoppingListFragment : Fragment(), CustomItemTouchHelper {
         val id = currentAdapter.getItemIdAtPosition(position)
         currentViewModel.onSwiped(id)
         Toast.makeText(activity, "Moved to archive", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun setOnFabClickListener(){
+
     }
 
     override fun onDestroyView() {
