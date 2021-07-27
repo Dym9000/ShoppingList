@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_shopping_list"
+    app:startDestination="@id/shoppingListViewPagerFragment">
+
+    <fragment
+        android:id="@+id/shoppingListViewPagerFragment"
+        android:name="com.example.shoppinglist.scenes.shopping_lists.view_pager_shoping_lists.ShoppingListViewPagerFragment"
+        android:label="fragment_shopping_list_view_pager"
+        tools:layout="@layout/fragment_shopping_list_view_pager" >
+        <action
+            android:id="@+id/action_shoppingListViewPagerFragment_to_shoppingListDetailsFragment"
+            app:destination="@id/shoppingListDetailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/shoppingListDetailsFragment"
+        android:name="com.example.shoppinglist.scenes.shopping_lists.list_details.ShoppingListDetailsFragment"
+        android:label="fragment_shopping_list_details"
+        tools:layout="@layout/fragment_shopping_list_details" >
+        <argument
+            android:name="shoppingListId"
+            app:argType="long" />
+        <argument
+            android:name="isArchived"
+            app:argType="integer" />
+    </fragment>
+</navigation>
