@@ -14,7 +14,7 @@ import javax.inject.Singleton
 class ShoppingListRepositoryImpl @Inject constructor(
     private val dao: ShoppingListDao,
     private val mapper: ShoppingListEntityMapper
-): ShoppingListRepository {
+) : ShoppingListRepository {
 
     override fun getCurrentShoppingList(): LiveData<List<ShoppingListDomain>> {
         return dao.getCurrentShoppingLists().map {
@@ -32,8 +32,11 @@ class ShoppingListRepositoryImpl @Inject constructor(
         return mapper.mapFromList(list)
     }
 
-    override suspend fun addShoppingList(name:String, date: Calendar?) {
-        val newShoppingList = ShoppingListEntity(name = name)
+    override suspend fun addShoppingList(name: String?, date: Calendar?) {
+        val newShoppingList = ShoppingListEntity(
+            name = if (name.isNullOrEmpty()) "Default list" else name,
+            shoppingDate = date ?: Calendar.getInstance()
+        )
         dao.addShoppingList(newShoppingList)
     }
 

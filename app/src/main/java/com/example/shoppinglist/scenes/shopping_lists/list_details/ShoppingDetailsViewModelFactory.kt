@@ -12,9 +12,7 @@ class ShoppingDetailsViewModelFactory(
 
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(ShoppingDetailsViewModel::class.java)
-            && itemId != null && isArchived != null
-        ) {
+        if (modelClass.isAssignableFrom(ShoppingDetailsViewModel::class.java)) {
             return ShoppingDetailsViewModel(repository, itemId, isArchived) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")

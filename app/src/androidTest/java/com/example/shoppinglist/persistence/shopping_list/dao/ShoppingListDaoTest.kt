@@ -21,7 +21,7 @@ import org.junit.runner.RunWith
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
 @MediumTest
-class ProductDaoTest {
+class ShoppingListDaoTest {
 
     @get:Rule
     var instantTaskExecutor = InstantTaskExecutorRule()

@@ -10,7 +10,7 @@ interface ShoppingListRepository {
 
     fun getArchivedShoppingList(): LiveData<List<ShoppingListDomain>>
 
-    suspend fun addShoppingList(name: String, date: Calendar?)
+    suspend fun addShoppingList(name: String?, date: Calendar?)
 
     suspend fun removeShoppingList(id: Long)
 

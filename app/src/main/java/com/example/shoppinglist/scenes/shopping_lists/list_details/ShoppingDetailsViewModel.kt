@@ -29,7 +29,7 @@ class ShoppingDetailsViewModel(
         }
     }
 
-    fun onFabClick(name: String, amount: String) {
+    fun onFabClick(name: String?, amount: String?) {
         if (isArchived != 1) {
             viewModelScope.launch {
                 withContext(Dispatchers.IO) {
@@ -47,7 +47,7 @@ class ShoppingDetailsViewModel(
         }
     }
 
-    companion object{
+    companion object {
         private const val CHECK = 1
         private const val UNCHECK = 0
     }

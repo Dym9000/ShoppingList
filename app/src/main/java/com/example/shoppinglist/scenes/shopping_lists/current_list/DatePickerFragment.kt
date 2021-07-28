@@ -1,12 +1,5 @@
 package com.example.shoppinglist.scenes.shopping_lists.current_list
 
-import android.app.DatePickerDialog
-import android.app.Dialog
-import android.os.Bundle
-import android.widget.DatePicker
-import androidx.fragment.app.DialogFragment
-import java.util.*
-
 //class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener {
 //
 //    override fun onCreateDialog(savedInstanceState: Bundle): Dialog {

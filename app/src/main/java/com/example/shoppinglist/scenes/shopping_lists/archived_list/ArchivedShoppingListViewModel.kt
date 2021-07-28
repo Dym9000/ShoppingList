@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.shoppinglist.scenes.shopping_lists.archived_list.utils.ConstantsArchived
 import com.example.shoppinglist.scenes.shopping_lists.common.repository.ShoppingListRepositoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -27,11 +28,14 @@ class ArchivedShoppingListViewModel @Inject constructor(
         }
 
     fun onClick(id: Long, isArchived: Int) {
-        _shoppingListId.value = bundleOf(Pair("1", id), Pair("2", isArchived))
+        _shoppingListId.value = bundleOf(
+            Pair(ConstantsArchived.BUNDLE_ARGS_1, id),
+            Pair(ConstantsArchived.BUNDLE_ARGS_2, isArchived)
+        )
     }
 
     fun onNavigated() {
-        _shoppingListId.value = bundleOf(Pair("1", -1))
+        _shoppingListId.value = bundleOf(Pair(ConstantsArchived.BUNDLE_ARGS_1, -1))
     }
 
     fun onSwiped(id: Int) {
