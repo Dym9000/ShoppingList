@@ -59,7 +59,8 @@ class CurrentShoppingListFragment : Fragment(), CustomItemTouchHelper, FragmentR
 
     override fun onFragmentResult(requestKey: String, result: Bundle) {
         val name = result.getString(ConstantsCurrentList.BUNDLE_NAME_KEY)
-        currentViewModel.onFabClick(name, null)
+        val shoppingDate = result.get(ConstantsCurrentList.BUNDLE_DATE_KEY) as Calendar?
+        currentViewModel.onFabClick(name, shoppingDate)
     }
 
     private fun setRecyclerView() {
