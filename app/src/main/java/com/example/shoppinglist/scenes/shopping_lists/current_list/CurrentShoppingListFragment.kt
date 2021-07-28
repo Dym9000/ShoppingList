@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -20,9 +21,10 @@ import com.example.shoppinglist.scenes.shopping_lists.common.ShoppingListAdapter
 import com.example.shoppinglist.scenes.shopping_lists.common.interfaces.CustomItemTouchHelper
 import com.example.shoppinglist.scenes.shopping_lists.view_pager_shoping_lists.ShoppingListViewPagerFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
 @AndroidEntryPoint
-class CurrentShoppingListFragment : Fragment(), CustomItemTouchHelper {
+class CurrentShoppingListFragment : Fragment(), CustomItemTouchHelper, FragmentResultListener {
 
     private val currentViewModel: CurrentShoppingListViewModel by viewModels()
     private lateinit var currentBinding: FragmentCurrentShoppingListBinding
@@ -42,12 +44,19 @@ class CurrentShoppingListFragment : Fragment(), CustomItemTouchHelper {
             viewModel = currentViewModel
         }
 
+        childFragmentManager.setFragmentResultListener("name", viewLifecycleOwner, this)
+
         setRecyclerView()
         setObservers()
         setItemTouchHelper()
         setOnFabClickListener()
 
         return currentBinding.root
+    }
+
+    override fun onFragmentResult(requestKey: String, result: Bundle) {
+            val name = result.getString("name")
+            currentViewModel.onFabClick(name!!, null)
     }
 
     private fun setRecyclerView() {
@@ -97,7 +106,14 @@ class CurrentShoppingListFragment : Fragment(), CustomItemTouchHelper {
     }
 
     private fun setOnFabClickListener(){
+        currentBinding.fabShoppingList.setOnClickListener{view ->
+            openDialog()
+        }
+    }
 
+    private fun openDialog() {
+        val newShoppingListDialog = DialogNewShoppingList()
+        newShoppingListDialog.show(childFragmentManager, "New Shopping List Dialog")
     }
 
     override fun onDestroyView() {

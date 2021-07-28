@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -23,7 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ShoppingListDetailsFragment : Fragment(), CustomItemTouchHelper {
+class ShoppingListDetailsFragment : Fragment(), CustomItemTouchHelper, FragmentResultListener {
 
     @Inject
     lateinit var repository: ProductRepositoryImpl
@@ -60,13 +61,22 @@ class ShoppingListDetailsFragment : Fragment(), CustomItemTouchHelper {
             viewModel = detailsViewModel
         }
 
+        childFragmentManager.setFragmentResultListener("name", viewLifecycleOwner, this)
+
         setRecyclerView()
         setObservers()
         if (detailsArgs.isArchived != 1) {
             setItemTouchHelper()
         }
+        setOnFabCLickListener()
 
         return detailsBinding.root
+    }
+
+    override fun onFragmentResult(requestKey: String, result: Bundle) {
+        val name = result.getString("name")
+        val amount = result.getString("name2")
+        detailsViewModel.onFabClick(name!!, amount!!)
     }
 
     private fun setRecyclerView() {
@@ -94,6 +104,17 @@ class ShoppingListDetailsFragment : Fragment(), CustomItemTouchHelper {
         val swipeHandler = ItemTouchHelperHandler(this)
         val itemTouchHelper = ItemTouchHelper(swipeHandler)
         itemTouchHelper.attachToRecyclerView(detailsBinding.recView.recViewShoppingList)
+    }
+
+    private fun setOnFabCLickListener(){
+        detailsBinding.fabProduct.setOnClickListener{view ->
+            openDialog()
+        }
+    }
+
+    private fun openDialog() {
+        val newProductDialog = DialogNewProduct()
+        newProductDialog.show(childFragmentManager, "New Product Dialog")
     }
 
     override fun onSwiped(position: Int) {

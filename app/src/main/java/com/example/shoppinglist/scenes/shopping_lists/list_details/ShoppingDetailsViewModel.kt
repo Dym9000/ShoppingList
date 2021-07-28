@@ -19,7 +19,7 @@ class ShoppingDetailsViewModel(
         if (isArchived == 0) {
             viewModelScope.launch {
                 withContext(Dispatchers.IO) {
-                    if (repository.isProductPicked(productId) == CHECK) {
+                    if (repository.isProductPicked(productId) == UNCHECK) {
                         repository.updateProductCheck(productId, CHECK)
                     } else {
                         repository.updateProductCheck(productId, UNCHECK)
@@ -29,11 +29,11 @@ class ShoppingDetailsViewModel(
         }
     }
 
-    fun onFabClick() {
+    fun onFabClick(name: String, amount: String) {
         if (isArchived != 1) {
             viewModelScope.launch {
                 withContext(Dispatchers.IO) {
-                    repository.addProduct(shoppingListId)
+                    repository.addProduct(shoppingListId, name, amount)
                 }
             }
         }
