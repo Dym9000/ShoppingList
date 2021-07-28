@@ -8,12 +8,13 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import com.example.shoppinglist.R
 import com.example.shoppinglist.databinding.DialogNewShoppingListBinding
+import com.example.shoppinglist.scenes.shopping_lists.current_list.utils.ConstantsCurrentList
 
-class DialogNewShoppingList(): AppCompatDialogFragment() {
+class DialogNewShoppingList : AppCompatDialogFragment() {
 
-    private lateinit var binding : DialogNewShoppingListBinding
+    private lateinit var binding: DialogNewShoppingListBinding
 
-    private fun setDateButtonListener(){
+    private fun setDateButtonListener() {
 //        TODO("IMPLEMENT DATE PICKER DIALOG")
     }
 
@@ -25,15 +26,19 @@ class DialogNewShoppingList(): AppCompatDialogFragment() {
 
             builder.setView(binding.root)
                 .setTitle(getString(R.string.dialog_new_list_title))
-                .setPositiveButton(R.string.dialog_new_list_positive_btn
-                ) { dialog, id ->
-//                    val newListName = editableText.text.toString()
+                .setPositiveButton(
+                    R.string.dialog_new_list_positive_btn
+                ) { _, _ ->
                     val newListName = binding.enterName.text.toString()
-                    setFragmentResult("name", bundleOf("name" to newListName))
+                    setFragmentResult(
+                        ConstantsCurrentList.NEW_LIST_DIALOG_KEY,
+                        bundleOf(ConstantsCurrentList.BUNDLE_NAME_KEY to newListName)
+                    )
                 }
-                .setNegativeButton(R.string.dialog_new_list_cancel_btn
-                ) { dialog, id ->
-                    getDialog()?.cancel()
+                .setNegativeButton(
+                    R.string.dialog_new_list_cancel_btn
+                ) { _, _ ->
+                    dialog?.cancel()
                 }
 
             builder.create()

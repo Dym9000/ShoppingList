@@ -20,6 +20,7 @@ import com.example.shoppinglist.scenes.shopping_lists.common.ItemTouchHelperHand
 import com.example.shoppinglist.scenes.shopping_lists.common.interfaces.CustomItemTouchHelper
 import com.example.shoppinglist.scenes.shopping_lists.common.interfaces.OnSceneChange
 import com.example.shoppinglist.scenes.shopping_lists.list_details.repository.ProductRepositoryImpl
+import com.example.shoppinglist.scenes.shopping_lists.list_details.utils.ConstantsListDetails
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -61,7 +62,11 @@ class ShoppingListDetailsFragment : Fragment(), CustomItemTouchHelper, FragmentR
             viewModel = detailsViewModel
         }
 
-        childFragmentManager.setFragmentResultListener("name", viewLifecycleOwner, this)
+        childFragmentManager.setFragmentResultListener(
+            ConstantsListDetails.NEW_PRODUCT_DIALOG_KEY,
+            viewLifecycleOwner,
+            this
+        )
 
         setRecyclerView()
         setObservers()
@@ -74,9 +79,9 @@ class ShoppingListDetailsFragment : Fragment(), CustomItemTouchHelper, FragmentR
     }
 
     override fun onFragmentResult(requestKey: String, result: Bundle) {
-        val name = result.getString("name")
-        val amount = result.getString("name2")
-        detailsViewModel.onFabClick(name!!, amount!!)
+        val name = result.getString(ConstantsListDetails.BUNDLE_NAME_KEY)
+        val amount = result.getString(ConstantsListDetails.BUNDLE_AMOUNT_KEY)
+        detailsViewModel.onFabClick(name, amount)
     }
 
     private fun setRecyclerView() {
@@ -106,15 +111,15 @@ class ShoppingListDetailsFragment : Fragment(), CustomItemTouchHelper, FragmentR
         itemTouchHelper.attachToRecyclerView(detailsBinding.recView.recViewShoppingList)
     }
 
-    private fun setOnFabCLickListener(){
-        detailsBinding.fabProduct.setOnClickListener{view ->
+    private fun setOnFabCLickListener() {
+        detailsBinding.fabProduct.setOnClickListener {
             openDialog()
         }
     }
 
     private fun openDialog() {
         val newProductDialog = DialogNewProduct()
-        newProductDialog.show(childFragmentManager, "New Product Dialog")
+        newProductDialog.show(childFragmentManager, ConstantsListDetails.MANAGER_TAG)
     }
 
     override fun onSwiped(position: Int) {

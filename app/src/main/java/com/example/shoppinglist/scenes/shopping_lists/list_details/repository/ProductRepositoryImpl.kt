@@ -13,7 +13,7 @@ import javax.inject.Singleton
 class ProductRepositoryImpl @Inject constructor(
     private val shoppingDao: ShoppingListDao,
     private val productMapper: ProductEntityMapper
-): ProductRepository {
+) : ProductRepository {
 
     override fun getProducts(id: Long): LiveData<List<ProductDomain>> {
         val products = shoppingDao.getAllProducts(id)
@@ -30,8 +30,12 @@ class ProductRepositoryImpl @Inject constructor(
         shoppingDao.removeProduct(id)
     }
 
-    override suspend fun addProduct(id: Long, name: String, amount: String) {
-        val newProduct = ProductEntity(shoppingListId = id, name = name, amount = amount)
+    override suspend fun addProduct(id: Long, name: String?, amount: String?) {
+        val newProduct = ProductEntity(
+            shoppingListId = id,
+            name = if (name.isNullOrEmpty()) "Default product" else name,
+            amount = amount ?: ""
+        )
         shoppingDao.addProduct(newProduct)
     }
 
@@ -39,7 +43,7 @@ class ProductRepositoryImpl @Inject constructor(
         return shoppingDao.isProductPicked(productId)
     }
 
-    override suspend fun updateProductCheck(id: Int, check:Int) {
+    override suspend fun updateProductCheck(id: Int, check: Int) {
         shoppingDao.updateProductCheck(id, check)
     }
 

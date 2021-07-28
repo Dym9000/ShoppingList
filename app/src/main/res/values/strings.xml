@@ -17,5 +17,6 @@
     <string name="dialog_new_list_cancel_btn">Cancel</string>
     <string name="dialog_new_product_enter_name_hint">enter product\'s name...</string>
     <string name="dialog_new_product_enter_amount_hint">enter amount...</string>
+    <string name="dialog_new_product_title">Creating a new product</string>
 
 </resources>

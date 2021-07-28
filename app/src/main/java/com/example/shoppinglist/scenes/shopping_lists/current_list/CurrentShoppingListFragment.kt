@@ -19,6 +19,7 @@ import com.example.shoppinglist.scenes.shopping_lists.common.ItemTouchHelperHand
 import com.example.shoppinglist.scenes.shopping_lists.common.OnShoppingListClickListener
 import com.example.shoppinglist.scenes.shopping_lists.common.ShoppingListAdapter
 import com.example.shoppinglist.scenes.shopping_lists.common.interfaces.CustomItemTouchHelper
+import com.example.shoppinglist.scenes.shopping_lists.current_list.utils.ConstantsCurrentList
 import com.example.shoppinglist.scenes.shopping_lists.view_pager_shoping_lists.ShoppingListViewPagerFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -44,7 +45,9 @@ class CurrentShoppingListFragment : Fragment(), CustomItemTouchHelper, FragmentR
             viewModel = currentViewModel
         }
 
-        childFragmentManager.setFragmentResultListener("name", viewLifecycleOwner, this)
+        childFragmentManager.setFragmentResultListener(
+            ConstantsCurrentList.NEW_LIST_DIALOG_KEY, viewLifecycleOwner, this
+        )
 
         setRecyclerView()
         setObservers()
@@ -55,8 +58,8 @@ class CurrentShoppingListFragment : Fragment(), CustomItemTouchHelper, FragmentR
     }
 
     override fun onFragmentResult(requestKey: String, result: Bundle) {
-            val name = result.getString("name")
-            currentViewModel.onFabClick(name!!, null)
+        val name = result.getString(ConstantsCurrentList.BUNDLE_NAME_KEY)
+        currentViewModel.onFabClick(name, null)
     }
 
     private fun setRecyclerView() {
@@ -80,11 +83,12 @@ class CurrentShoppingListFragment : Fragment(), CustomItemTouchHelper, FragmentR
         })
 
         currentViewModel.shoppingListId.observe(viewLifecycleOwner, {
-            if (it[Constants.BUNDLE_KEY_1] != -1) {
+            if (it[ConstantsCurrentList.BUNDLE_ARGS_1] != -1) {
                 this.findNavController().navigate(
                     ShoppingListViewPagerFragmentDirections
                         .actionShoppingListViewPagerFragmentToShoppingListDetailsFragment(
-                            it.getLong(Constants.BUNDLE_KEY_1), it.getInt(Constants.BUNDLE_KEY_2)
+                            it.getLong(ConstantsCurrentList.BUNDLE_ARGS_1),
+                            it.getInt(ConstantsCurrentList.BUNDLE_ARGS_2)
                         )
                 )
                 currentViewModel.onNavigated()
@@ -105,15 +109,15 @@ class CurrentShoppingListFragment : Fragment(), CustomItemTouchHelper, FragmentR
         Toast.makeText(activity, "Moved to archive", Toast.LENGTH_SHORT).show()
     }
 
-    private fun setOnFabClickListener(){
-        currentBinding.fabShoppingList.setOnClickListener{view ->
+    private fun setOnFabClickListener() {
+        currentBinding.fabShoppingList.setOnClickListener {
             openDialog()
         }
     }
 
     private fun openDialog() {
         val newShoppingListDialog = DialogNewShoppingList()
-        newShoppingListDialog.show(childFragmentManager, "New Shopping List Dialog")
+        newShoppingListDialog.show(childFragmentManager, ConstantsCurrentList.MANAGER_TAG)
     }
 
     override fun onDestroyView() {

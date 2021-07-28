@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shoppinglist.R
 import com.example.shoppinglist.databinding.FragmentArchivedShoppingListBinding
+import com.example.shoppinglist.scenes.shopping_lists.archived_list.utils.ConstantsArchived
 import com.example.shoppinglist.scenes.shopping_lists.common.ItemTopBottomSpacing
 import com.example.shoppinglist.scenes.shopping_lists.common.ItemTouchHelperHandler
 import com.example.shoppinglist.scenes.shopping_lists.common.OnShoppingListClickListener
@@ -70,11 +71,12 @@ class ArchivedShoppingListFragment : Fragment(), CustomItemTouchHelper {
         })
 
         archivedViewModel.shoppingListId.observe(viewLifecycleOwner, {
-            if (it["1"] != -1) {
+            if (it[ConstantsArchived.BUNDLE_ARGS_1] != -1) {
                 this.findNavController().navigate(
                     ShoppingListViewPagerFragmentDirections
                         .actionShoppingListViewPagerFragmentToShoppingListDetailsFragment(
-                            it.getLong("1"), it.getInt("2")
+                            it.getLong(ConstantsArchived.BUNDLE_ARGS_1),
+                            it.getInt(ConstantsArchived.BUNDLE_ARGS_2)
                         )
                 )
                 archivedViewModel.onNavigated()
