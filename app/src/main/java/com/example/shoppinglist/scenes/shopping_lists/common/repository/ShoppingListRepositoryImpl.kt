@@ -6,6 +6,7 @@ import com.example.shoppinglist.domain.ShoppingListDomain
 import com.example.shoppinglist.persistence.shopping_list.dao.ShoppingListDao
 import com.example.shoppinglist.persistence.shopping_list.entity.ShoppingListEntity
 import com.example.shoppinglist.persistence.shopping_list.mapper.ShoppingListEntityMapper
+import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -31,8 +32,8 @@ class ShoppingListRepositoryImpl @Inject constructor(
         return mapper.mapFromList(list)
     }
 
-    override suspend fun addShoppingList() {
-        val newShoppingList = ShoppingListEntity()
+    override suspend fun addShoppingList(name:String, date: Calendar?) {
+        val newShoppingList = ShoppingListEntity(name = name)
         dao.addShoppingList(newShoppingList)
     }
 

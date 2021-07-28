@@ -11,6 +11,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -34,10 +35,10 @@ class CurrentShoppingListViewModel @Inject constructor(
         _shoppingListId.value = bundleOf(Pair("1", -1))
     }
 
-    fun onFabClick() {
+    fun onFabClick(newName: String, shoppingDate: Calendar?) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                repository.addShoppingList()
+                repository.addShoppingList(newName, shoppingDate)
             }
         }
     }

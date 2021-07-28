@@ -12,5 +12,10 @@
     <string name="dialog_new_shopping_list_enter_name_hint">enter name...</string>
     <string name="dialog_new_shopping_list_shopping_date">shopping date</string>
     <string name="dialog_new_shopping_list_choose_date">Choose Date</string>
+    <string name="dialog_new_list_title">Creating a new shopping list</string>
+    <string name="dialog_new_list_positive_btn">Ok</string>
+    <string name="dialog_new_list_cancel_btn">Cancel</string>
+    <string name="dialog_new_product_enter_name_hint">enter product\'s name...</string>
+    <string name="dialog_new_product_enter_amount_hint">enter amount...</string>
 
 </resources>

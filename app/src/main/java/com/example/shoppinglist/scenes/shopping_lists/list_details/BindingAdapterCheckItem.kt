@@ -8,7 +8,7 @@ import androidx.core.widget.ImageViewCompat
 import androidx.databinding.BindingAdapter
 import com.example.shoppinglist.R
 
-@BindingAdapter("app:isItemChecked")
+@BindingAdapter("isItemChecked")
 fun ImageView.setItemCheck(isChecked: Int?) {
     isChecked.let {
         val checkColor = ContextCompat.getColor(context, R.color.purple_200)

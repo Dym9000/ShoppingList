@@ -21,7 +21,7 @@ class ShoppingListActivity : AppCompatActivity(), OnSceneChange {
         super.onCreate(savedInstanceState)
 
         mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_shopping_list)
-
+        
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment_shopping_list) as NavHostFragment
         navController = navHostFragment.navController

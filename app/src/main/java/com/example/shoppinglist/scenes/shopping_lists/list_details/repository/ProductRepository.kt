@@ -9,7 +9,7 @@ interface ProductRepository {
 
     suspend fun removeProduct(id: Int)
 
-    suspend fun addProduct(id: Long)
+    suspend fun addProduct(id: Long, name: String, amount: String)
 
     suspend fun isProductPicked(productId: Int): Int
 

@@ -30,8 +30,8 @@ class ProductRepositoryImpl @Inject constructor(
         shoppingDao.removeProduct(id)
     }
 
-    override suspend fun addProduct(id: Long) {
-        val newProduct = ProductEntity(shoppingListId = id)
+    override suspend fun addProduct(id: Long, name: String, amount: String) {
+        val newProduct = ProductEntity(shoppingListId = id, name = name, amount = amount)
         shoppingDao.addProduct(newProduct)
     }
 
