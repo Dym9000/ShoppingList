@@ -9,9 +9,6 @@ object ConstantsCurrentList {
 
     //NEW SHOPPING LIST DIALOG
     const val BUNDLE_NAME_KEY = "NAME"
-    const val BUNDLE_DATE_YEAR_KEY = "YEAR"
-    const val BUNDLE_DATE_MONTH_KEY = "MONTH"
-    const val BUNDLE_DATE_DAY_KEY = "DAY"
     const val BUNDLE_DATE_KEY = "DATE"
 
     const val MANAGER_TAG = "NEW_LIST_DIALOG"

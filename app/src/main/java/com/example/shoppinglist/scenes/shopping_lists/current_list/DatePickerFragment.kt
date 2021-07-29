@@ -23,11 +23,14 @@ class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener 
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, day: Int) {
+        var shoppingDate = Calendar.getInstance().apply {
+            set(Calendar.YEAR, year)
+            set(Calendar.MONTH, month)
+            set(Calendar.DATE, day)
+        }
         setFragmentResult(
             ConstantsCurrentList.DATE_PICKER_KEY, bundleOf(
-                ConstantsCurrentList.BUNDLE_DATE_YEAR_KEY to year,
-                ConstantsCurrentList.BUNDLE_DATE_MONTH_KEY to month,
-                ConstantsCurrentList.BUNDLE_DATE_DAY_KEY to day
+                ConstantsCurrentList.BUNDLE_DATE_KEY to shoppingDate
             )
         )
     }
