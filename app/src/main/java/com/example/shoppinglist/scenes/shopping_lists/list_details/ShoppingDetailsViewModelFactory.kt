@@ -2,10 +2,10 @@ package com.example.shoppinglist.scenes.shopping_lists.list_details
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.shoppinglist.scenes.shopping_lists.list_details.repository.ProductRepositoryImpl
+import com.example.shoppinglist.scenes.shopping_lists.list_details.repository.ProductRepository
 
 class ShoppingDetailsViewModelFactory(
-    private val repository: ProductRepositoryImpl,
+    private val repository: ProductRepository,
     private val itemId: Long,
     private val isArchived: Int
 ) : ViewModelProvider.Factory {

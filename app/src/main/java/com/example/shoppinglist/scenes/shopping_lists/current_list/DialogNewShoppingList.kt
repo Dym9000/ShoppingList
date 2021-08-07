@@ -16,7 +16,7 @@ import java.util.*
 class DialogNewShoppingList : AppCompatDialogFragment(), FragmentResultListener {
 
     private lateinit var binding: DialogNewShoppingListBinding
-    private lateinit var shoppingDate: Calendar
+    private var shoppingDate = Calendar.getInstance()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
@@ -59,14 +59,7 @@ class DialogNewShoppingList : AppCompatDialogFragment(), FragmentResultListener 
     }
 
     override fun onFragmentResult(requestKey: String, result: Bundle) {
-        val year = result.getInt(ConstantsCurrentList.BUNDLE_DATE_YEAR_KEY)
-        val month = result.getInt(ConstantsCurrentList.BUNDLE_DATE_MONTH_KEY)
-        val day = result.getInt(ConstantsCurrentList.BUNDLE_DATE_DAY_KEY)
-        shoppingDate = Calendar.getInstance()
-        shoppingDate.set(Calendar.YEAR, year)
-        shoppingDate.set(Calendar.MONTH, month)
-        shoppingDate.set(Calendar.DATE, day)
-
+        shoppingDate = result.get(ConstantsCurrentList.BUNDLE_DATE_KEY) as Calendar
         binding.displayDate.text = DateFormatter.formatDate(shoppingDate.time)
     }
 
@@ -74,6 +67,7 @@ class DialogNewShoppingList : AppCompatDialogFragment(), FragmentResultListener 
         binding.setDateBtn.setOnClickListener {
             val datePickerFragment = DatePickerFragment()
             datePickerFragment.show(childFragmentManager, ConstantsCurrentList.DATE_PICKER_TAG)
+
         }
     }
 }
