@@ -6,18 +6,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.shoppinglist.scenes.shopping_lists.common.repository.ShoppingListRepositoryImpl
+import com.example.shoppinglist.scenes.shopping_lists.common.repository.ShoppingListRepository
 import com.example.shoppinglist.scenes.shopping_lists.current_list.utils.ConstantsCurrentList
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
 class CurrentShoppingListViewModel @Inject constructor(
-    private val repository: ShoppingListRepositoryImpl
+    private val repository: ShoppingListRepository
 ) : ViewModel() {
 
     val currentShoppingList = repository.getCurrentShoppingList()
@@ -41,17 +39,13 @@ class CurrentShoppingListViewModel @Inject constructor(
 
     fun onFabClick(newName: String?, shoppingDate: Calendar?) {
         viewModelScope.launch {
-            withContext(Dispatchers.IO) {
                 repository.addShoppingList(newName, shoppingDate)
-            }
         }
     }
 
     fun onSwiped(id: Int) {
         viewModelScope.launch {
-            withContext(Dispatchers.IO) {
                 repository.moveToArchive(id.toLong())
-            }
         }
     }
 
